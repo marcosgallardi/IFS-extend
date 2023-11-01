@@ -1,25 +1,42 @@
-const sequelize = require("../../DB_connection");
-const bcrypt = require("bcryptjs");
+const Sequelize = require("sequelize");
 
 // NOMBRE DE LA TABLA: USER_IFS_EXTEND
 //campos  user_id ,username, password
 // nombre de la trigger para auincremetar el id: user_ifs_extend_trigger
 
-const authCtrl = async (name, password) => {
+let authCtrl = async (username, password) => {
   try {
-    const result = await sequelize.query("SELECT * FROM USER_IFS_EXTEND");
+    // const result = await sequelize.query("SELECT * FROM USER_IFS_EXTEND");
 
-    const user = result[0].find((user) => user.username === name);
-   
-    if (user.PASSWORD === password) {
-      return true;
-    }
+    // const user = result[0].find((user) => user.username === name);
+
+    // if (user.PASSWORD === password) {s
+    //   return true;
+    // }
+    let sequelize = new Sequelize("IFSARG1T", username, password, {
+      dialect: "oracle",
+      dialectOptions: {
+        connectString:
+          "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.3.17)(PORT=1521))(CONNECT_DATA=(SID=IFSARG1T)))",
+        thinkMode: true,
+      },
+    });
+
+    try {
+    await sequelize.authenticate();
+    console.log("Connection has been established successfully.");
   } catch (error) {
-    console.log(error.message);
+    console.error("Unable to connect to the database:", error);
+  }
+    console.log(sequelize)
+
+    return sequelize;
+  } catch (error) {
+    console.log(error);
   }
 };
 
-module.exports = authCtrl;
+module.exports = { authCtrl };
 //sys.user$
 
 //hoy crear en prod

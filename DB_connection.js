@@ -1,5 +1,5 @@
-const Sequelize = require("sequelize");
 const oracledb = require("oracledb");
+
 require("dotenv").config();
 
 // const { DB_HOST, DB_PORT } = process.env;
@@ -25,7 +25,8 @@ if (process.platform === "win32") {
 } else if (process.platform === "darwin" && process.arch === "x64") {
   // macOS Intel
   clientOpts = {
-    libDir: "C:\\Users\\Marcos.Gallardi\\Desktop\\ControlerDataBase\\instantclient_11_2",
+    libDir:
+      "C:\\Users\\Marcos.Gallardi\\Desktop\\ControlerDataBase\\instantclient_11_2",
   };
 }
 // else on other platforms like Linux the system library search path MUST always be
@@ -33,17 +34,6 @@ if (process.platform === "win32") {
 
 // enable node-oracledb Thick mode
 oracledb.initOracleClient(clientOpts);
-
-const sequelize = new Sequelize("IFSARG1T", "IFSASNM", "ifs1", {
-  dialect: "oracle",
-  dialectOptions: {
-    connectString:
-      "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.3.17)(PORT=1521))(CONNECT_DATA=(SID=IFSARG1T)))",
-    thinkMode: true,
-  },
-});
-
-module.exports = sequelize;
 
 // const oracledb = require("oracledb");
 // oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
