@@ -1,21 +1,22 @@
 const { authCtrl } = require("../../controllers/AuthCtrl/authCtrl");
-const { stringify } = require('flatted');
+const { stringify } = require("flatted");
 
 let globalSequelize;
 
 const authHandler = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const username = req.query.username;
+    const password = req.query.password;
+
     let sequelize = await authCtrl(username, password);
-    console.log(sequelize);
+
     globalSequelize = stringify(sequelize);
-    
-    res.status(200).json(globalSequelize);
+    let auth = await sequelize.authenticate();
+    console.log(auth);
+    res.status(200).json(auth);
   } catch (error) {
     res.status(400).json(false);
-    console.log(error);
-    //
-    throw error.message;
+    console.log(error.message);
   }
 };
 
