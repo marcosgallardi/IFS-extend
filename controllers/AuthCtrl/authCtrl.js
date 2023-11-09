@@ -21,7 +21,13 @@ let authCtrl = async (username, password) => {
         thinkMode: true,
       },
     });
-
+    
+    await sequelize.sync({ alter: true });
+    console.log("Database connected");
+   
+      global.sequelize = sequelize;
+      console.log(global.sequelize,"acaaaaaaaaaaaaa");
+    
     return sequelize;
   } catch (error) {
     console.log(error);
