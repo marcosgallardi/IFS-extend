@@ -1,3 +1,4 @@
+const {funcSelectInv}  = require("../../helpers/funcSelectOrdInv")
 // vista de la orden SNM_ORDEN_VENTAS_VIEW
 //vista de la factura SNM_FACTURAS_CLIENTES_VIEW
 const getOrdInvCtrl = async () => {
@@ -5,7 +6,7 @@ const getOrdInvCtrl = async () => {
     
     console.log(sequelize,"exist sequelize")
   try {
-    const data = await sequelize.query("SELECT * from SNM_FACTURAS_CLIENTES_VIEW");
+    const data = await funcSelectInv()
     console.log(data, "data");
     return data;
   } catch (error) {
