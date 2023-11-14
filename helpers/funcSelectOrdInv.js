@@ -6,7 +6,7 @@ const funcSelectOrd = async () => {
 const funcSelectInv = async () => {
   let sequelize = global.sequelize;
   const table = "snm_facturas_clientes_view";
-  const column = ["company", "identity", "currency", "party_type", "series_id"];
+  const column = ["company", "identity", "currency", "series_id"];
 
   let data = [];
 
