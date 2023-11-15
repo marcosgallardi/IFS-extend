@@ -1,24 +1,23 @@
 const { authCtrl } = require("../../controllers/AuthCtrl/authCtrl");
 
-
-let globalSequelize;
-
 const authHandler = async (req, res) => {
-  try {
-    const username = req.query.username;
-    const password = req.query.password;
+  const username = req.query.username;
+  const password = req.query.password;
 
-    let sequelize = await authCtrl(username, password);
-
-    globalSequelize = sequelize;
-    let auth = await sequelize.authenticate();
-   
-
-    res.status(200).json(auth);
-  } catch (error) {
-    res.status(400).json(false);
-    console.log(error.message);
+  let sequelize = await authCtrl(username, password);
+  if (sequelize) {
+    sequelize
+      .authenticate()
+      .then(() => {
+        console.log("La conexión a la base de datos fue exitosa");
+        res.status(200).json(true);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  } else {
+    res.status(200).json(false);
   }
 };
 
-module.exports = { authHandler, globalSequelize };
+module.exports = { authHandler };
