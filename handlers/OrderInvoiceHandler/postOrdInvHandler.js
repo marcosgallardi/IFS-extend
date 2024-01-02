@@ -2,7 +2,8 @@ const postOrdInvCtrl = require("../../controllers/OrdInvCtrl/postOrdInvCtrl");
 
 const postOrdInvHandler = async (req, res) => {
   try {
-    const data  = req.body;
+    const data = req.body;
+    console.log(data)
 
     if (data) {
       const carga = await postOrdInvCtrl(data);
