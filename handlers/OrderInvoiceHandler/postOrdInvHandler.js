@@ -3,10 +3,10 @@ const postOrdInvCtrl = require("../../controllers/OrdInvCtrl/postOrdInvCtrl");
 const postOrdInvHandler = async (req, res) => {
   try {
     const data = req.body;
-    console.log(data)
 
     if (data) {
       const carga = await postOrdInvCtrl(data);
+      console.log(carga,"carga handler")
       if (carga) {
         res.status(200).json({ message: "Se concilio con exito!" });
       } else {

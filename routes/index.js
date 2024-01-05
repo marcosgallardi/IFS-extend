@@ -11,7 +11,6 @@ router.use("/auth", authRouter);
 router.use("/invoice", invoiceRouter);
 router.use("/order", getOrderHandler);
 router.use("/rrhh", rrhhRouter);
-
 router.use("/ordInv", orderInvoice);
 
 module.exports = router;
