@@ -1,10 +1,10 @@
-const postOrdInvCtrl = (data) => {
+const postOrdInvCtrl = async (data) => {
   let sequelize = global.sequelize;
   try {
     const dataToArray = Object.values(data);
 
-    return dataToArray.forEach(async (element) => {
-      const carga = await sequelize.query(
+    const uploadPromises = dataToArray.map(async (element) => {
+      let carga = await sequelize.query(
         `MERGE INTO snm_customer_order_invoice_tab target
          USING dual source
          ON (target.order_no = :order_no 
@@ -24,9 +24,12 @@ const postOrdInvCtrl = (data) => {
           },
         }
       );
-      console.log(carga, "carga");
       return carga;
     });
+
+    const upLoadData = await Promise.all(uploadPromises);
+   
+    return upLoadData;
   } catch (error) {
     throw error.message;
   }

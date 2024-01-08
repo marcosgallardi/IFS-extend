@@ -6,7 +6,7 @@ const postOrdInvHandler = async (req, res) => {
 
     if (data) {
       const carga = await postOrdInvCtrl(data);
-      console.log(carga,"carga handler")
+      console.log(carga, "carga handler");
       if (carga) {
         res.status(200).json({ message: "Se concilio con exito!" });
       } else {
